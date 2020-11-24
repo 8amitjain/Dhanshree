@@ -1,0 +1,41 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block content %}
+<!-- object-->
+    <img src="{{object.image_main.url}}" width="100"> &nbsp;&nbsp;
+    {{ object.title }} - {{ object.price }} &nbsp;&nbsp;
+    {{ object.short_description }} - {{ object.description }} &nbsp;&nbsp;
+
+<!--Checking if user had allready revived-->
+    {% if reviewed == 'False' %}
+         <a href="{% url 'product-review-add' object.id %}">Add</a> &nbsp;
+    {% endif %}
+
+
+    <!--Display review-->
+    {% for review in object.review.all %}
+        {% if review.user == request.user %}
+            <!--showing delete and update button near there review-->
+            {{review.title}}
+            {{review.review_description}}
+            {{review.rating}}
+            <a href="{% url 'product-review-update' review.id %}">Update</a> &nbsp;
+            <a href="{% url 'product-review-delete' review.id %}">Delete</a> &nbsp;
+        {% else %}
+            {{review.title}}
+            {{review.review_description}}
+            {{review.rating}}
+        {% endif %}
+    {% endfor %}
+
+{% endblock content %}

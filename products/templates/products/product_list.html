@@ -1,0 +1,31 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block content %}
+<ul>
+<!-- object_list is all product query-->
+{% for product in object_list %}
+    <li>
+        {{ product.title }} - {{ product.price }} - {{ product.description }} &nbsp;&nbsp;
+        <a href="{% url 'product-update' product.id %}">Update</a> &nbsp;
+
+        <a href="{% url 'product-delete' product.id %}">Delete</a> &nbsp;
+
+        <a href="{% url 'product-detail-view' product.id %}">Detail</a> &nbsp;
+
+
+    </li>
+{% empty %}
+    <li>No product added!</li>
+{% endfor %}
+</ul>
+{% endblock content %}
