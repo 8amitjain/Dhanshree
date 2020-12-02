@@ -17,9 +17,11 @@ INSTALLED_APPS = [
 
     # Installed Apps
     'crispy_forms',
+    'widget_tweaks',
     
     'home',
     'products',
+    'analytics',
 ]
 
 MIDDLEWARE = [

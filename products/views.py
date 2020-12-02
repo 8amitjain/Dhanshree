@@ -1,140 +1,49 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.template.defaultfilters import slugify
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.views.generic import View
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 
+from .filters import ProductFilter
 from .models import (
-    Category, Product
+    Product
 )
-
-# TODO only staff can change add and update data
-# TODO Set delete success url to product displace page
-# TODO Create a page to display Current Products and Category
-
-
-# Category
-# Show all Category
-class CategoryListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
-    model = Category
-    # Template name category_list.html
-    # object_list variable name
-
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
-
-
-# Add Category
-class CategoryAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = Category
-    fields = ['title', 'description', 'image']
-    # template name category_form
-
-    def form_valid(self, form):
-        form.instance.slug = slugify(form.instance.title)
-        return super().form_valid(form)
-    # TODO Pass form button and heading data
-
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
-
-
-# Update Category
-class CategoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Category
-    fields = ['title', 'description', 'image']
-    # template name category_form
-    # TODO Pass form button and heading data
-
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
-
-
-# Delete Category
-class CategoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Category
-    fields = ['title', 'description', 'image']
-    success_url = '/'
-    # template name category_confirm_delete.html
-    # TODO Pass form button and heading data
-
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
+from .forms import ProductForm
 
 
 # Products
 # Show all Products
-class ProductListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class ProductListView(ListView):
     model = Product
-    # queryset = Product.objects.filter(is_active=True)
-    # Template name product_list.html
-    # object_list variable name
-
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
-
-
-# Detail Product
-class ProductDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-    model = Product
-    # Template name product_detail.html
-    # object variable name
+    paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reviewed'] = "False"
-        for review in self.object.review.all():
-            if review.user == self.request.user:
-                context['reviewed'] = "True"
+        current_query = Product.objects.all()
+        product_filter = ProductFilter(self.request.GET, queryset=current_query)
+        context['filter'] = product_filter
+        if len(product_filter.qs) != len(current_query):
+            context['object_list'] = product_filter.qs
+            if len(product_filter.qs) < self.paginate_by:
+                context['is_paginated'] = False
         return context
 
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
 
+class ProductDetailView(View):
+    def get(self, *args, **kwargs):
+        context = {}
+        product = Product.objects.get(id=self.kwargs.get('pk'))
+        price = product.price
+        discount_price = product.discount_price
+        context['object'] = product
+        context['discount_percent'] = int(100 - ((discount_price / price) * 100))
+        context['form'] = ProductForm()
+        return render(self.request, 'products/product_detail.html', context)
 
-# Add Products
-class ProductAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = Product
-    fields = ['category', 'title', 'price', 'discount_price', 'label', 'stock_no', 'short_description', 'description',
-              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active']
-    # template name product_form
-
-    def form_valid(self, form):
-        product = form.save(commit=False)
-        product.slug = slugify(product.title)
-        product.save()
-        product.item_ref_number = f"PRN-{100000 + int(product.id)}"
-        product.save()
-        return super().form_valid(form)
-    # TODO Pass form button and heading data
-
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
-
-
-# Update Products
-class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Product
-    fields = ['category', 'title', 'price', 'discount_price', 'label', 'stock_no', 'short_description', 'description',
-              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active']
-    # template name product_form
-    # TODO Pass form button and heading data
-
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
-
-
-# Delete Products
-class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Product
-    fields = ['category', 'title', 'price', 'discount_price', 'label', 'stock_no', 'short_description', 'description',
-              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active']
-    success_url = '/'
-    # template name product_confirm_delete.html
-    # TODO display name in template of Product which is deleted
-    # TODO Pass form button and heading data
-
-    def test_func(self):  # Giving only staff the permission to add Category
-        return self.request.user.is_staff is True
-
-
+    def post(self, *args, **kwargs):
+        form = ProductForm(self.request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            product = Product.objects.get(id=self.kwargs.get('pk'))
+            form.product = product
+            form.save()
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))

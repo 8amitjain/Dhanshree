@@ -1,0 +1,15 @@
+{% extends "home/base.html" %}
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block content %}
+
+
+
+{% endblock content %}

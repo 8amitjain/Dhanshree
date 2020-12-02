@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from . models import NewsLetter, Contact
+
+admin.site.register(NewsLetter)
+admin.site.register(Contact)

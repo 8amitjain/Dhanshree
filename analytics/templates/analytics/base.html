@@ -1,0 +1,79 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+
+<!--Using this messages for message display -->
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+         {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+
+{% block content %}
+
+        <!--====== App Content ======-->
+</div>
+</div>
+<br>
+<br>
+<br>
+        <div class="u-s-p-b-60">
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="dash">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12">
+
+                                    <!--====== Dashboard Features ======-->
+                                    <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                                        <div class="dash__pad-1">
+
+                                            <span class="dash__text u-s-m-b-16">Hello, {{ user.user_full_name }}</span>
+                                            <ul class="dash__f-list">
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-product-list' %}">All Products</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-parent-category-list' %}">All Parent Category's</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-category-list' %}">All Category's</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="{% url 'admin-send-mail' %}">Send Bulk Mail</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-9 col-md-12">
+                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                                        <div class="dash__pad-2">
+                                            {% block data %} {% endblock data %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+    </div>
+    <!--====== End - Main App ======-->
+
+{% endblock content %}
