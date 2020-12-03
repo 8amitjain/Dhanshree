@@ -1,9 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.template.defaultfilters import slugify
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.views.generic import TemplateView
@@ -11,17 +10,33 @@ from products.models import (
     Product, Category, ParentCategory
 )
 from products.filters import ProductFilter
-from home.models import NewsLetter
+from home.models import NewsLetter, Contact
+from products.models import ProductContact
 
 from .forms import SendBulkMailForm
-from .filters import CategoryFilter, ParentCategoryFilter
+from .filters import CategoryFilter, ParentCategoryFilter, ContactFilter, ProductContactFilter
 
-# import datetime
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
+
+today = datetime.now().date()
+yesterday = today + timedelta(-1)
 
 
 class AnalyticsView(UserPassesTestMixin, TemplateView):
-    template_name = "analytics/base.html"
+    template_name = "analytics/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        product_contact = ProductContact.objects.all().count
+        contact = Contact.objects.all().count
+        product_contact_toady = ProductContact.objects.filter(date__gte=yesterday).count
+        contact_toady = Contact.objects.filter(date__gte=yesterday).count
+
+        context['product_contact_today'] = product_contact_toady
+        context['contact_today'] = contact_toady
+        context['product_contact_count'] = product_contact
+        context['contact_count'] = contact
+        return context
 
     def test_func(self):
         return self.request.user.is_staff is True
@@ -259,3 +274,71 @@ class SendMail(FormView):
         email.send(fail_silently=False)
         return redirect('admin-dashboard')
 
+
+# Show all ProductContact
+class AdminProductContactListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = ProductContact
+    paginate_by = 4
+    # Template name category_list_admin.html
+    # object_list variable name
+    template_name = "analytics/product_contact_list_admin.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_query = ProductContact.objects.all()
+        category_filter = ProductContactFilter(self.request.GET, queryset=current_query)
+        context['filter'] = category_filter
+        if len(category_filter.qs) != len(current_query):
+            context['object_list'] = category_filter.qs
+            if len(category_filter.qs) < self.paginate_by:
+                context['is_paginated'] = False
+        return context
+
+    def test_func(self):  # Giving only staff the permission to add Category
+        return self.request.user.is_staff is True
+
+
+class AdminProductContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = ProductContact
+    fields = ['name', 'read']
+    template_name = "analytics/product_contact_update_admin.html"
+
+    # template name category_form
+    # TODO Pass form button and heading data
+
+    def test_func(self):  # Giving only staff the permission to add Category
+        return self.request.user.is_staff is True
+
+
+class AdminContactListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Contact
+    paginate_by = 4
+    # Template name category_list_admin.html
+    # object_list variable name
+    template_name = "analytics/contact_list_admin.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_query = Contact.objects.all()
+        category_filter = ContactFilter(self.request.GET, queryset=current_query)
+        context['filter'] = category_filter
+        if len(category_filter.qs) != len(current_query):
+            context['object_list'] = category_filter.qs
+            if len(category_filter.qs) < self.paginate_by:
+                context['is_paginated'] = False
+        return context
+
+    def test_func(self):  # Giving only staff the permission to add Category
+        return self.request.user.is_staff is True
+
+
+class AdminContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Contact
+    fields = ['name', 'read']
+    template_name = "analytics/contact_update_admin.html"
+
+    # template name category_form
+    # TODO Pass form button and heading data
+
+    def test_func(self):  # Giving only staff the permission to add Category
+        return self.request.user.is_staff is True

@@ -1,8 +1,7 @@
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils import timezone
-from django.shortcuts import redirect
-from products.models import Product
+from django.shortcuts import reverse
 
 
 class NewsLetter(models.Model):
@@ -23,5 +22,11 @@ class Contact(models.Model):
     date = models.DateField(default=timezone.now)
     read = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['-date']
+
     def __str__(self):
         return f"{self.name}_{self.mobile}"
+
+    def get_absolute_url(self):  # Redirect to this link after adding review
+        return reverse("admin-contact")

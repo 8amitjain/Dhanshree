@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import HttpResponseRedirect
-
+from django.contrib import messages
 from django.views.generic.edit import CreateView
-
 from .forms import NewsLetterForm
 from .models import Contact
 
@@ -26,4 +25,12 @@ class ContactView(CreateView):
     fields = ['name', 'email', 'mobile', 'description']
     template_name = "home/contact.html"
     success_url = '/contact/'
+
+    def form_valid(self, form):
+        phone_number = form.cleaned_data['mobile']
+        if len(str(phone_number)) != 10:
+            messages.warning(self.request, 'Invalid mobile number')
+            return redirect('contact')
+        messages.success(self.request, 'Message sent you will be contact soon!')
+        return super().form_valid(form)
 

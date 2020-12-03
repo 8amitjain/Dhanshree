@@ -25,13 +25,15 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-3 col-md-12">
-
-                                    <!--====== Dashboard Features ======-->
-                                    <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+                                    <div
+                                            class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
                                             <span class="dash__text u-s-m-b-16">Hello, {{ user.user_full_name }}</span>
                                             <ul class="dash__f-list">
+                                                <li>
+                                                    <a class="dash-active"  href="{% url 'admin-dashboard' %}">Admin Home</a>
+                                                </li>
 
                                                 <li>
                                                     <a class="dash-active"  href="{% url 'admin-product-list' %}">All Products</a>
@@ -46,7 +48,15 @@
                                                 </li>
 
                                                 <li>
-                                                    <a href="{% url 'admin-send-mail' %}">Send Bulk Mail</a>
+                                                    <a class="dash-active" href="{% url 'admin-product-contact' %}">Product Contact</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'admin-contact' %}">Contact</a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dash-active" href="{% url 'admin-send-mail' %}">Send Bulk Mail</a>
                                                 </li>
 
                                             </ul>
@@ -58,8 +68,9 @@
                                 <div class="col-lg-9 col-md-12">
                                     <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                                         <div class="dash__pad-2">
-                                            {% block data %} {% endblock data %}
+                                                {% block data %} {% endblock data %}
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

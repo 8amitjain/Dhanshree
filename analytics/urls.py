@@ -28,7 +28,20 @@ urlpatterns = [
     path('parent/category/delete/<int:pk>/', views.AdminParentCategoryDeleteView.as_view(),
          name='admin-product-parent-category-delete'),
 
+    # Contact
+    path('product/contact/', views.AdminProductContactListView.as_view(), name='admin-product-contact'),
+    path('product/contact/update/<int:pk>/', views.AdminProductContactUpdateView.as_view(),
+         name='admin-product-contact-update'),
+
+    # Contact
+    path('contact/', views.AdminContactListView.as_view(), name='admin-contact'),
+    path('contact/update/<int:pk>/', views.AdminContactUpdateView.as_view(),
+         name='admin-contact-update'),
+
+    # Send Mail
     path('send/mail/', views.SendMail.as_view(), name='admin-send-mail'),
+
+
 
 ]
 

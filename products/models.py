@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.utils import timezone
-from django.http import HttpResponseRedirect
+
 
 LABEL_CHOICES = (
     ('Sale', 'Sale'),
@@ -86,11 +86,14 @@ class ProductContact(models.Model):
     date = models.DateField(default=timezone.now)
     read = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['-date']
+
     def __str__(self):
         return f"{self.name}_{self.mobile}"
 
     def get_absolute_url(self):  # Redirect to this link after adding review
-        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
+        return reverse("admin-product-contact")
 
 
 # class VariationManger(models.Manager):

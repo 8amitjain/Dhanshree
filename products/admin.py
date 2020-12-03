@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (
-    Category, Product, ParentCategory
+    Category, Product, ParentCategory, ProductContact
 )
 from import_export.admin import ImportExportModelAdmin
 
@@ -14,6 +14,7 @@ class VariationAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Product, ProductsAdmin)
+admin.site.register(ProductContact)
 # admin.site.register(Variation, VariationAdmin)
 
 admin.site.register(Category)

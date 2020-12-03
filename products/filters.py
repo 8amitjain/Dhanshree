@@ -1,7 +1,7 @@
 import django_filters
 from django import forms
 
-from .models import Product, Category
+from .models import Product, Category, ProductContact
 
 
 class ProductFilter(django_filters.FilterSet):
@@ -13,3 +13,4 @@ class ProductFilter(django_filters.FilterSet):
     class Meta:
         model = Product
         fields = ['category']
+

@@ -1,16 +1,6 @@
 {% extends "home/base.html" %}
-{% load crispy_forms_tags %}
-<!--Using this messages for message display -->
-<ul>
-    {% for message in messages %}
-    <li class="{{ message.tags }}">
-         {{ message }}
-    </li>
-    {% endfor %}
-</ul>
 
 {% block content %}
-
   <div class="app-content">
             <div class="u-s-p-y-60">
                 <div class="section__content">
@@ -20,10 +10,10 @@
                                 <ul class="breadcrumb__list">
                                     <li class="has-separator">
 
-                                        <a href="index.html">Home</a></li>
+                                        <a href="/">Home</a></li>
                                     <li class="is-marked">
 
-                                        <a href="contact.html">Contact</a></li>
+                                        <a href="">Contact</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -32,6 +22,14 @@
             </div>
             <!--====== End - Section 1 ======-->
 
+
+            <center style="margin-top:-2em;">
+                {% for message in messages %}
+                    <h3 class="alert alert-{{ message.tags }}">
+                         {{ message }}
+                    </h3>
+                {% endfor %}
+            </center>
 
             <!--====== Section 2 ======-->
              <div class="u-s-p-b-60">
