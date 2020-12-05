@@ -46,8 +46,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=200, unique=True)
-    price = models.DecimalField(max_digits=20, decimal_places=2)
-    discount_price = models.DecimalField(max_digits=20, decimal_places=2)
+    # price = models.DecimalField(max_digits=20, decimal_places=2)
+    # discount_price = models.DecimalField(max_digits=20, decimal_places=2)
 
     label = models.CharField(choices=LABEL_CHOICES, max_length=11, null=True, blank=True,
                              help_text="Item is of Sale, New Arrival etc or leave it blank for no label. \

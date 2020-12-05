@@ -11,7 +11,7 @@
 
 {% block content %}
 
-<center style="margin:4em 0 -4em 0;">
+<center style="margin:4em 0 0em 0;">
     {% for message in messages %}
         <h3 class="alert alert-{{ message.tags }}">
              {{ message }}
@@ -19,7 +19,7 @@
     {% endfor %}
 </center>
         <div class="app-content">
-            <div class="u-s-p-t-90">
+            <div class="u-s-p-t-90" style="padding-top:1em;">
                 <div class="container">
                     <div class="row">
 
@@ -50,22 +50,29 @@
                                             <div class="pd-o-img-wrap" data-src="{{ object.image_main.url }}">
 
                                                 <img class="u-img-fluid" src="{{ object.image_main.url }}" data-zoom-image="{{ object.image_main.url }}" alt=""></div>
-                                        {% elif object.image_2 %}
+                                        {% endif %}
+
+                                        {% if object.image_2 %}
                                             <div class="pd-o-img-wrap" data-src="{{ object.image_2.url }}">
 
                                                 <img class="u-img-fluid" src="{{ object.image_2.url }}" data-zoom-image="{{ object.image_2.url }}" alt=""></div>
-                                        {% elif object.image_3 %}
+                                        {% endif %}
+
+                                        {% if object.image_3 %}
 
                                             <div class="pd-o-img-wrap" data-src="{{ object.image_3.url }}">
 
                                                 <img class="u-img-fluid" src="{{ object.image_3.url }}" data-zoom-image="{{ object.image_3.url }}" alt=""></div>
-                                        {% elif object.image_4 %}
+                                        {% endif %}
+
+                                        {% if object.image_4 %}
 
                                             <div class="pd-o-img-wrap" data-src="{{ object.image_4.url }}">
 
                                                 <img class="u-img-fluid" src="{{ object.image_4.url }}" data-zoom-image="{{ object.image_4.url }}" alt=""></div>
+                                        {% endif %}
 
-                                        {% elif object.image_5 %}
+                                        {% if object.image_5 %}
                                             <div class="pd-o-img-wrap" data-src="{{ object.image_5.url }}">
 
                                                 <img class="u-img-fluid" src="{{ object.image_5.url }}" data-zoom-image="{{ object.image_5.url }}" alt=""></div>
@@ -82,19 +89,27 @@
                                                 <div>
                                                     <img class="u-img-fluid" src="{{ object.image_main.url }}" alt="">
                                                 </div>
-                                            {% elif object.image_2 %}
+                                            {% endif %}
+
+                                            {% if object.image_2 %}
                                                 <div>
                                                     <img class="u-img-fluid" src="{{ object.image_2.url }}" alt="">
                                                 </div>
-                                            {% elif object.image_3 %}
+                                            {% endif %}
+
+                                            {% if object.image_3 %}
                                                 <div>
                                                     <img class="u-img-fluid" src="{{ object.image_3.url }}" alt="">
                                                 </div>
-                                            {% elif object.image_4 %}
+                                            {% endif %}
+
+                                            {% if object.image_4 %}
                                                 <div>
                                                     <img class="u-img-fluid" src="{{ object.image_4.url }}" alt="">
                                                 </div>
-                                            {% elif object.image_5 %}
+                                            {% endif %}
+
+                                            {% if object.image_5 %}
                                             <div>
                                                 <img class="u-img-fluid" src="{{ object.image_5.url }}" alt="">
                                             </div>
@@ -110,68 +125,19 @@
                                     <h3>{{ object.title }}</h3></div>
                                 <div>
                                     <div class="pd-detail__inline">
-                                        <span class="pd-detail__price">₹{{ object.discount_price }}</span>
-
-                                        <span class="pd-detail__discount">({{ discount_percent }}% OFF)</span><del class="pd-detail__del">₹{{ object.price }}</del>
-
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-15">
-
-                                    <span class="pd-detail__preview-desc">{{ object.short_description }}</span></div>
-                                <div class="u-s-m-b-15">
-                                    <div class="pd-detail__inline">
-                                        <div class="section__content">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="contact-area u-h-100">
-                                                            <br>
-                                                            <div class="contact-area__heading">
-                                                                <h2>Get In Touch</h2>
-                                                            </div>
-                                                            <form class="contact-f" method="post" style="margin-top:-1em;">
-                                                                {% csrf_token %}
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-md-6 u-h-100">
-                                                                        <div class="u-s-m-b-30">
-                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Name (Required)" required style="font-size:1em;"></div>
-                                                                        <div class="u-s-m-b-30">
-                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="email" id="id_email" name="email" placeholder="Email" style="font-size:1em;"></div>
-                                                                        <div class="u-s-m-b-30">
-                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="number" id="id_mobile" name="mobile" placeholder="Mobile Number (Required)" required style="font-size:1em;"></div>
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                                                        <button class="btn btn--e-brand-b-2" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">Send Message</button></div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="ship-b__box u-s-m-b-10">
+                                            <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address" style="font-size:1.2em;">Get Latest Price</a>
                                         </div>
+<!--                                        <span class="pd-detail__price">₹{{ object.discount_price }}</span>-->
+
+<!--                                        <span class="pd-detail__discount">({{ discount_percent }}% OFF)</span><del class="pd-detail__del">₹{{ object.price }}</del>-->
+
                                     </div>
                                 </div>
                                 <div class="u-s-m-b-15">
 
-
-<!--                                <div class="u-s-m-b-15">-->
-
-<!--                                    <span class="pd-detail__label u-s-m-b-8">Product Policy:</span>-->
-<!--                                    <ul class="pd-detail__policy-list">-->
-<!--                                        <li><i class="fas fa-check-circle u-s-m-r-8"></i>-->
-
-<!--                                            <span>Buyer Protection.</span></li>-->
-<!--                                        <li><i class="fas fa-check-circle u-s-m-r-8"></i>-->
-
-<!--                                            <span>Full Refund if you don't receive your order.</span></li>-->
-<!--                                        <li><i class="fas fa-check-circle u-s-m-r-8"></i>-->
-
-<!--                                            <span>Returns accepted if product not as described.</span></li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                            </div>-->
-                            <!--====== End - Product Right Side Details ======-->
+                                    <span class="pd-detail__preview-desc">{{ object.short_description|safe }}</span></div>
+                                <div class="u-s-m-b-15">
                         </div>
                     </div>
                 </div>
@@ -186,9 +152,7 @@
                                 <div class="u-s-m-b-30">
                                     <ul class="nav pd-tab__list">
                                         <li class="nav-item">
-
                                             <a class="nav-link" data-toggle="tab" href="#pd-desc">DESCRIPTION</a></li>
-
                                     </ul>
                                 </div>
                                 <div class="tab-content">
@@ -198,23 +162,8 @@
                                             <div class="u-s-m-b-15">
                                                 <p>{{ object.description }}</p>
                                             </div>
-<!--                                            <div class="u-s-m-b-30"><iframe src="" allowfullscreen></iframe></div>-->
-<!--                                            <div class="u-s-m-b-30">-->
-<!--                                                <ul>-->
-<!--                                                    <li><i class="fas fa-check u-s-m-r-8"></i>-->
-
-<!--                                                        <span>Buyer Protection.</span></li>-->
-<!--                                                    <li><i class="fas fa-check u-s-m-r-8"></i>-->
-
-<!--                                                        <span>Full Refund if you don't receive your order.</span></li>-->
-<!--                                                    <li><i class="fas fa-check u-s-m-r-8"></i>-->
-
-<!--                                                        <span>Returns accepted if product not as described.</span></li>-->
-<!--                                                </ul>-->
-<!--                                            </div>-->
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -269,7 +218,7 @@
 
                                         <span class="product-o__name">
 
-                                            <a href="product-detail.html">{{ product.title }}</a></span>
+                                            <a href="{% url 'product-detail-view' product.id %}">{{ product.title }}</a></span>
                                         <span class="product-o__price">₹{{ product.discount_price }}
                                         <span class="product-o__discount">₹{{ product.price }}</span></span>
                                     </div>
@@ -288,5 +237,125 @@
 
     </div>
     <!--====== End - Main App ======-->
+
+    <!--====== Contact Form Modal ======-->
+    <div class="modal fade" id="edit-ship-address">
+        <div class="hide-mobile">
+            <div class="modal-dialog modal-dialog-centered" style="margin-right:10em;margin-top:10em;">
+            <div class="modal-content" style="width:60%;">
+                <div class="modal-body" style="width:170%;">
+                    <div class="checkout-modal2">
+                        <div class="u-s-m-b-30">
+                            <div class="dash-l-r">
+<!--                                <h1 class="gl-modal-h1">Contact Us</h1>-->
+                                <div class="dash__link dash__link--brand">
+
+<!--                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Contact Us</a></div>-->
+                            </div>
+                        </div>
+                        <div class="checkout-modal2__form">
+                             <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        <div class="section__content">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="contact-area u-h-100">
+                                                            <br>
+                                                            <div class="contact-area__heading">
+                                                                <h2>Get Latest Price</h2>
+                                                            </div>
+                                                            <form class="contact-f" method="post" style="margin-top:-1em;">
+                                                                {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-6 u-h-100">
+                                                                        <div class="u-s-m-b-30">
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Name (Required)" required style="font-size:1em;"></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="email" id="id_email" name="email" placeholder="Email" style="font-size:1em;"></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="number" id="id_mobile" name="mobile" placeholder="Mobile Number (Required)" required style="font-size:1em;"></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                        <button class="btn btn--e-brand-b-2" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">Send Message</button>
+                                                                        <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button>
+
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+        </div>
+
+         <div class="show-mobile">
+            <div class="modal-dialog modal-dialog-centered" style="margin-top:5em;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="checkout-modal2">
+                        <div class="u-s-m-b-30">
+                            <div class="dash-l-r">
+<!--                                <h1 class="gl-modal-h1">Contact Us</h1>-->
+                                <div class="dash__link dash__link--brand">
+
+<!--                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Contact Us</a></div>-->
+                            </div>
+                        </div>
+                        <div class="checkout-modal2__form">
+                             <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        <div class="section__content">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="contact-area u-h-100">
+                                                            <br>
+                                                            <div class="contact-area__heading">
+                                                                <h2>Get Latest Price</h2>
+                                                            </div>
+                                                            <form class="contact-f" method="post" style="margin-top:-1em;">
+                                                                {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-md-6 u-h-100">
+                                                                        <div class="u-s-m-b-30">
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="id_name" name="name" placeholder="Name (Required)" required style="font-size:1em;"></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="email" id="id_email" name="email" placeholder="Email" style="font-size:1em;"></div>
+                                                                        <div class="u-s-m-b-30">
+                                                                            <input class="input-text input-text--border-radius input-text--primary-style" type="number" id="id_mobile" name="mobile" placeholder="Mobile Number (Required)" required style="font-size:1em;"></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12">
+                                                                        <button class="btn btn--e-brand-b-2" type="submit" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">Send Message</button>
+                                                                        <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button>
+
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+        </div>
+    </div>
+    <!--====== Contact Form Modal ======-->
 
 {% endblock content %}

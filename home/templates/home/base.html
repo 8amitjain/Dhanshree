@@ -57,7 +57,7 @@
     <div id="app">
 
         <!--====== Main Header ======-->
-        <header class="header--style-1"  style="margin-bottom:-8em;">
+        <header class="header--style-1" style="margin-bottom:-3em;">
 
             <!--====== Nav 1 ======-->
             <nav class="primary-nav primary-nav-wrapper--border">
@@ -74,21 +74,16 @@
                         </a>
                         <!--====== End - Main Logo ======-->
 
-
                         <!--====== Search Form ======-->
-                        <form class="main-form" style="margin-top:-1.5em;">
+                        <form class="main-form" style="margin-top:-1.5em;" method="get" action="{% url 'product-list-view' %}">
 
+                            <label for="id_note"></label>
 
-                            <label for="main-search"></label>
-
-                            <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search">
+                            <input class="input-text input-text--border-radius input-text--style-1" type="text" id="id_note" name="note" placeholder="Search" style="margin-top:1.5em;padding-right:5em;font-size:1em;">
 
                             <button class="btn btn--icon fas fa-search main-search-button" type="submit" style="margin-top:0.7em;"></button></form>
 
-
-                                                <div class="menu-init" id="navigation2">
-
-<!--                            <button class="btn btn&#45;&#45;icon toggle-button toggle-button&#45;&#45;secondary fas fa-cog" type="button"></button>-->
+                            <div class="menu-init" id="navigation2">
 
                             <!--====== Menu ======-->
                             <div class="ah-lg-mode">
@@ -179,19 +174,6 @@
             </nav>
             <!--====== End - Nav 1 ======-->
 
-
-            <!--====== Nav 2 ======-->
-            <nav class="secondary-nav-wrapper">
-                <div class="container">
-
-                    <!--====== Secondary Nav ======-->
-                    <div class="secondary-nav">
-
-                    </div>
-                    <!--====== End - Secondary Nav ======-->
-                </div>
-            </nav>
-            <!--====== End - Nav 2 ======-->
         </header>
 
 		{% block content %} {% endblock content %}

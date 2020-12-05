@@ -33,10 +33,10 @@ class ProductDetailView(View):
     def get(self, *args, **kwargs):
         context = {}
         product = Product.objects.get(id=self.kwargs.get('pk'))
-        price = product.price
-        discount_price = product.discount_price
+        # price = product.price
+        # discount_price = product.discount_price
         context['object'] = product
-        context['discount_percent'] = int(100 - ((discount_price / price) * 100))
+        # context['discount_percent'] = int(100 - ((discount_price / price) * 100))
         context['similar_product'] = Product.objects.filter(category=product.category)
         context['form'] = ProductForm()
         return render(self.request, 'products/product_detail.html', context)

@@ -63,9 +63,8 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="shop-p__collection">
+                                 <div class="shop-p__collection">
                                     <div class="row is-grid-active">
-
                                         {% for product in object_list %}
                                         <div class="col-lg-3 col-md-4 col-sm-6">
                                             <div class="product-m">
@@ -74,15 +73,6 @@
                                                     <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url 'product-detail-view' product.id %}">
 
                                                         <img class="aspect__img" src="{{ product.image_main.url }}" alt=""></a>
-                                                    <div class="product-m__add-cart">
-
-                                                        {%  if product.variation_set.all %}
-                                                            <a href="{% url 'product-detail-view' product.id %}" class="btn--e-brand" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">Add to Cart</a>
-                                                        {% else %}
-                                                            <a href="{{ product.get_add_to_cart_url }}" class="btn--e-brand" style="background-color:#965B92;color:#fff;border-color:#965B92;" onMouseOver="this.style.background-color='#fff'">Add to Cart</a>
-                                                        {% endif %}
-                                                    </div>
-
                                                 </div>
                                                 <div class="product-m__content">
                                                     <div class="product-m__category">
@@ -95,19 +85,16 @@
 <!--                                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>-->
 <!--                                                        <span class="product-m__review">(23)</span>-->
                                                     </div>
-                                                    <div class="product-m__price">{{ product.discount_price }}</div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
 
                                                             <span>{{ product.short_description }}</span></div>
-                                                        <div class="product-m__wishlist">
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                         {% endfor %}
                                     </div>
-                                </div>
                                 <div class="u-s-p-y-60">
 
                                     <!--====== Pagination ======-->

@@ -16,7 +16,7 @@ from products.models import ProductContact
 from .forms import SendBulkMailForm
 from .filters import CategoryFilter, ParentCategoryFilter, ContactFilter, ProductContactFilter
 
-from datetime import datetime, timedelta, time
+from datetime import datetime, timedelta
 
 today = datetime.now().date()
 yesterday = today + timedelta(-1)
