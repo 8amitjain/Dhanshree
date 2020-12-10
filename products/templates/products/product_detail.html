@@ -128,15 +128,97 @@
                                         <div class="ship-b__box u-s-m-b-10">
                                             <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address" style="font-size:1.2em;">Get Latest Price</a>
                                         </div>
-<!--                                        <span class="pd-detail__price">₹{{ object.discount_price }}</span>-->
-
-<!--                                        <span class="pd-detail__discount">({{ discount_percent }}% OFF)</span><del class="pd-detail__del">₹{{ object.price }}</del>-->
-
                                     </div>
                                 </div>
                                 <div class="u-s-m-b-15">
+                                    <h3>Product Details</h3></div>
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Description</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Weighing Capacity</td>
+                                              <td>{{ object.weighing_capacity }}</td>
+                                            </tr>
+                                          {% endif %}
 
-                                    <span class="pd-detail__preview-desc">{{ object.short_description|safe }}</span></div>
+                                        {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Use</td>
+                                              <td>{{ object.use }}</td>
+                                            </tr>
+                                        {% endif %}
+
+                                         {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Brand</td>
+                                              <td>{{ object.brand }}</td>
+                                            </tr>
+                                           {% endif %}
+
+
+                                        {% if object.weighing_capacity %}
+                                        <tr>
+                                          <td>Display Type</td>
+                                          <td>{{ object.display_type }}</td>
+                                        </tr>
+                                        {% endif %}
+
+                                       {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Material</td>
+                                              <td>{{ object.material }}</td>
+                                            </tr>
+                                         {% endif %}
+
+                                        {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Battery Type</td>
+                                              <td>{{ object.battery_type }}</td>
+                                            </tr>
+                                          {% endif %}
+
+                                          {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Power Consumption</td>
+                                              <td>{{ object.power_consumption }}</td>
+                                            </tr>
+                                          {% endif %}
+
+                                          {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Voltage</td>
+                                              <td>{{ object.voltage }}</td>
+                                            </tr>
+                                          {% endif %}
+
+                                          {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Operating Temperature</td>
+                                              <td>{{ object.operating_temperature }}</td>
+                                            </tr>
+                                          {% endif %}
+
+                                          {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>No of Digits</td>
+                                              <td>{{ object.no_of_digits }}</td>
+                                            </tr>
+                                          {% endif %}
+
+                                          {% if object.weighing_capacity %}
+                                            <tr>
+                                              <td>Digit Height</td>
+                                              <td>{{ object.digit_height }}</td>
+                                            </tr>
+                                          {% endif %}
+                                      </tbody>
+                                    </table>
                                 <div class="u-s-m-b-15">
                         </div>
                     </div>
@@ -160,8 +242,27 @@
                                     <!--====== Tab 1 ======-->
                                         <div class="pd-tab__desc">
                                             <div class="u-s-m-b-15">
-                                                <p>{{ object.description }}</p>
+                                                <p>{{ object.options }}</p>
                                             </div>
+                                            <h3>Specifications:</h3>
+                                            <table class="table">
+                                              <thead>
+                                                <tr>
+                                                  <th scope="col">Model</th>
+                                                  <th scope="col">Capacity</th>
+                                                  <th scope="col">E value</th>
+                                                  <th scope="col">Platform Size (mm)</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr>
+                                                   <td> {{ object.model | safe | linebreaks }}</td>
+                                                   <td> {{ object.capacity | safe | linebreaks }}</td>
+                                                   <td> {{ object.e_value | safe | linebreaks }}</td>
+                                                   <td> {{ object.platform_size | safe | linebreaks }}</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -219,8 +320,6 @@
                                         <span class="product-o__name">
 
                                             <a href="{% url 'product-detail-view' product.id %}">{{ product.title }}</a></span>
-                                        <span class="product-o__price">₹{{ product.discount_price }}
-                                        <span class="product-o__discount">₹{{ product.price }}</span></span>
                                     </div>
                                 </div>
                             {% endfor %}

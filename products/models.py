@@ -54,8 +54,24 @@ class Product(models.Model):
                                         (Label will be displayed over a item.)")
     slug = models.SlugField(unique=True)
 
-    short_description = models.TextField(help_text='To describe product in short', null=True, blank=True)
-    description = models.TextField(help_text='Overview product', null=True, blank=True)
+    model = models.TextField(null=True, blank=True, max_length=200)
+    capacity = models.TextField(null=True, blank=True, max_length=200)
+    e_value = models.TextField(null=True, blank=True, max_length=200)
+    platform_size = models.TextField(null=True, blank=True, max_length=200)
+
+    weighing_capacity = models.CharField(help_text='Weighing capacity', null=True, blank=True, max_length=200)
+    use = models.CharField(null=True, blank=True, max_length=200)
+    brand = models.CharField(null=True, blank=True, max_length=200)
+    display_type = models.CharField(null=True, blank=True, max_length=200)
+    material = models.CharField(null=True, blank=True, max_length=200)
+    battery_type = models.CharField(null=True, blank=True, max_length=200)
+    power_consumption = models.CharField(null=True, blank=True, max_length=200)
+    voltage = models.CharField(null=True, blank=True, max_length=200)
+    operating_temperature = models.CharField(null=True, blank=True, max_length=200)
+    no_of_digits = models.CharField(null=True, blank=True, max_length=200)
+    digit_height = models.CharField(null=True, blank=True, max_length=200)
+
+    options = models.TextField(help_text='Overview product', null=True, blank=True)
 
     image_main = models.ImageField(upload_to='products', null=True, blank=True)
     image_2 = models.ImageField(upload_to='products', null=True, blank=True)
@@ -81,7 +97,7 @@ class Product(models.Model):
 class ProductContact(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(null=True, blank=True)
-    mobile = models.IntegerField()
+    mobile = models.BigIntegerField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     date = models.DateField(default=timezone.now)
     read = models.BooleanField(default=False)

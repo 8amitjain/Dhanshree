@@ -70,10 +70,11 @@ class AdminProductListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 # Add Products
 class AdminProductAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Product
-    fields = ['category', 'title', 'price', 'discount_price', 'label', 'short_description', 'description',
-              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active']
+    fields = ['category', 'title', 'label', 'options', 'model', 'capacity', 'e_value',
+              'platform_size', 'weighing_capacity', 'use', 'brand', 'display_type', 'material', 'battery_type',
+              'power_consumption', 'voltage', 'operating_temperature',  'no_of_digits', 'digit_height',
+              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active', 'trending']
     template_name = "analytics/product_add_update_admin.html"
-
     # template name product_form
 
     def form_valid(self, form):
@@ -83,7 +84,6 @@ class AdminProductAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         product.item_ref_number = f"PRN-{100000 + int(product.id)}"
         product.save()
         return super().form_valid(form)
-    # TODO Pass form button and heading data
 
     def test_func(self):  # Giving only staff the permission to add Category
         return self.request.user.is_staff is True
@@ -92,29 +92,28 @@ class AdminProductAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 # Update Products
 class AdminProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    fields = ['category', 'title', 'price', 'discount_price', 'label', 'short_description', 'description',
-              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active']
+    fields = ['category', 'title', 'label', 'options', 'model', 'capacity', 'e_value',
+              'platform_size', 'weighing_capacity', 'use', 'brand', 'display_type', 'material', 'battery_type',
+              'power_consumption', 'voltage', 'operating_temperature', 'no_of_digits', 'digit_height',
+              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active', 'trending']
     template_name = "analytics/product_add_update_admin.html"
-    # template name product_form
-    # TODO Pass form button and heading data
 
-    def test_func(self):  # Giving only staff the permission to add Category
+
+    def test_func(self):
         return self.request.user.is_staff is True
 
 
 # Delete Products
 class AdminProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Product
-    fields = ['category', 'title', 'price', 'discount_price', 'label', 'short_description', 'description',
-              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active']
+    fields = ['category', 'title', 'price', 'discount_price', 'label', 'options', 'model', 'capacity', 'e_value',
+              'platform_size', 'weighing_capacity', 'use', 'brand', 'display_type', 'material', 'battery_type',
+              'power_consumption', 'voltage', 'operating_temperature', 'no_of_digits', 'digit_height',
+              'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active', 'trending']
     success_url = '/'
     template_name = "analytics/product_confirm_delete.html"
 
-    # template name product_confirm_delete.html
-    # TODO display name in template of Product which is deleted
-    # TODO Pass form button and heading data
-
-    def test_func(self):  # Giving only staff the permission to add Category
+    def test_func(self):
         return self.request.user.is_staff is True
 
 
