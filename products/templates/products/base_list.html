@@ -32,7 +32,7 @@
     <script src="{% static 'home/js/uikit-icons.js' %}"></script>
 
     <!--Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -122,20 +122,22 @@
 
 </head>
 <body class="config">
+
     <div id="myOverlay" class="overlay" style="z-index:999998;">
-  <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+  <span class="closebtn" onclick="closeSearch()" title="Close Overlay" >×</span>
   <div class="overlay-content">
      <form method="get" action="{% url 'product-list-view' %}">
         <label for="main-search"></label>
           <input type="text" placeholder="Search.." name="note">
           <button type="submit"><i class="fa fa-search"></i></button>
      </form>
+  </div>
 </div>
-</div>
+
     <div class="preloader is-active">
         <div class="preloader__wrap">
 
-            <img class="preloader__img" src="{% static 'home/images/loader.gif' %}" alt="" style="width:20%;"></div>
+            <img class="preloader__img" src="{% static 'home/images/loader.gif' %}" alt=""></div>
     </div>
 
     <!--====== Main App ======-->
@@ -200,7 +202,7 @@
                         <div class="menu-init" id="navigation1">
 
                              <div class="show-mobile">
-                            <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-bars" type="button" style="margin-left: -0.3em;"></button>
+                            <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-bars" type="button" style="margin-left: 0.5em;"></button>
                              </div>
                             <!--====== Menu ======-->
                             <div class="ah-lg-mode">
@@ -276,7 +278,7 @@
 
 
                             <div class="show-mobile">
-                                <button class="openBtn" onclick="openSearch()" style="background: #fff;border: 0px;font-size: 1.2em;margin-right: -0.5em;"><i class="fa fa-search"></i></button>
+                                <button class="openBtn" onclick="openSearch()" style="background: #fff;border: 0px;font-size: 1.2em;margin-right: -0.5em;z-index:999999;"><i class="fa fa-search"></i></button>
 <!--                             <form  style="margin-right: -5em;">-->
 
 <!--                            <label for="main-search"></label>-->
@@ -298,12 +300,12 @@
                         <div class="menu-init" id="navigation1" style="margin-left:-5em">
 
                              <div class="hide-mobile" >
-                                 <form method="get" style="margin-left:-5em" action="{% url 'product-list-view' %}">
+                                 <form method="get" style="margin-left:-5em">
                                 <label for="main-search"></label>
 
-                                <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" name='note' placeholder="Search" style="border-radius: 0em;width: 180%;margin-left:-9.5em;z-index:999999;">
+                                <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" name='note' placeholder="Search" style="border-radius: 0em;width: 180%;margin-left:-10.5em;">
 
-                                <button class="btn btn--icon fas fa-search main-search-button" type="submit" style="margin-right: -1.2em;margin-top: 0.7em;"></button></form>
+                                <button class="btn btn--icon fas fa-search main-search-button" type="submit" style="margin-right: 0em;margin-top: 0em;"></button></form>
                             </div>
 
 <!--                             <div class="show-mobile">-->
@@ -432,6 +434,7 @@
         </div>
     </noscript>
        </div>
+
 
 
 <script>

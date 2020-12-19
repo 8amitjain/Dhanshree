@@ -22,7 +22,7 @@ today = datetime.now().date()
 yesterday = today + timedelta(-1)
 
 
-class AnalyticsView(UserPassesTestMixin, TemplateView):
+class AnalyticsView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = "analytics/home.html"
 
     def get_context_data(self, **kwargs):
@@ -98,7 +98,6 @@ class AdminProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView
               'image_main', 'image_2', 'image_3', 'image_4', 'image_5', 'is_active', 'trending']
     template_name = "analytics/product_add_update_admin.html"
 
-
     def test_func(self):
         return self.request.user.is_staff is True
 
@@ -146,13 +145,11 @@ class AdminCategoryAddView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Category
     fields = ['title', 'parent_category', 'description', 'image']
     template_name = "analytics/category_add_update_admin.html"
-
     # template name category_form
 
     def form_valid(self, form):
         form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
-    # TODO Pass form button and heading data
 
     def test_func(self):  # Giving only staff the permission to add Category
         return self.request.user.is_staff is True
@@ -165,7 +162,6 @@ class AdminCategoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
     template_name = "analytics/category_add_update_admin.html"
 
     # template name category_form
-    # TODO Pass form button and heading data
 
     def test_func(self):  # Giving only staff the permission to add Category
         return self.request.user.is_staff is True
@@ -178,7 +174,6 @@ class AdminCategoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteVie
     success_url = '/'
     template_name = "analytics/category_confirm_delete.html"
     # template name category_confirm_delete.html
-    # TODO Pass form button and heading data
 
     def test_func(self):  # Giving only staff the permission to add Category
         return self.request.user.is_staff is True
@@ -251,7 +246,7 @@ class AdminParentCategoryDeleteView(LoginRequiredMixin, UserPassesTestMixin, Del
 
 
 # SEND BULK MAIL
-class SendMail(FormView):
+class SendMail(LoginRequiredMixin, UserPassesTestMixin, FormView):
     form_class = SendBulkMailForm
     template_name = 'analytics/send_bulk_mail.html'
     success_url = '/'
@@ -272,6 +267,9 @@ class SendMail(FormView):
         email.content_subtype = "html"
         email.send(fail_silently=False)
         return redirect('admin-dashboard')
+
+    def test_func(self):  # Giving only staff the permission to add Category
+        return self.request.user.is_staff is True
 
 
 # Show all ProductContact

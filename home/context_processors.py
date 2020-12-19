@@ -11,7 +11,7 @@ def news_form(request):
 
 def product_filter(request):
     context = {}
-    current_query = Product.objects.all()
+    current_query = Product.objects.filter(title__contains=request.GET.get('q'))
     product_search_filter = ProductSearchFilter(request.GET, queryset=current_query)
 
     context['filter'] = product_search_filter
